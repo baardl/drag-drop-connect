@@ -1,0 +1,48 @@
+
+server:
+  rootPath: /dragdrop/*
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  loggers:
+    no.cantara.dwsample: DEBUG
+    no.cantara.dwsample.resources.HelloWorldResource: TRACE
+
+# Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
+# Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
+# Logback's Fixed Window Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%i.log.gz
+
+  appenders:
+    - type: console
+      threshold: DEBUG
+
+    - type: file
+      threshold: DEBUG
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: log/application.log
+      archivedLogFilenamePattern: log/application-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: Europe/Oslo
+      maxFileSize: 10MB
+
+    - type: logstashfile
+      threshold: TRACE
+      customFields: '{"appname":"cantara-dropwizard-drag-drop-connect","funfacts":["hello-is-a-word","world-is-a-planet"],"buildinfo":{"version":"Version 1.1-SNAPSHOT","author":"Mr. developer","license":"Apache License Version 2.0"}}'
+      currentLogFilename: log/application-json.log
+      archivedLogFilenamePattern: log/application-json-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: Europe/Oslo
+      maxFileSize: 10MB
+
+# <a comma separated string of the packages that contain your @Api annotated resources>
+swagger:
+  resourcePackage: com.bardlind.dragdrop

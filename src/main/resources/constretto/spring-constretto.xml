@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:constretto="http://constretto.org/schema/constretto"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://constretto.org/schema/constretto
+           http://constretto.org/schema/constretto/constretto-1.2.xsd">
+
+    <constretto:configuration annotation-config="true" property-placeholder="true">
+        <constretto:stores>
+            <constretto:properties-store>
+                <constretto:resource location="classpath:drag-drop-connect.properties"/>
+                <constretto:resource location="file:drag-drop-connect_override.properties"/>
+            </constretto:properties-store>
+        </constretto:stores>
+    </constretto:configuration>
+</beans>
